@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic Tac Toe</title>
+</head>
+<body>
+  <div class="tic-tac-toe"></div>
+
+  <script>
+    const boardLength = 3;
+    const ticTacToe = document.querySelector('.tic-tac-toe')
+    const boardArray = [];
+    for (let i = 0; i < boardLength; i++){
+      boardArray.push([]);
+    }
+    console.log(JSON.parse(JSON.stringify(boardArray)));
+
+
+    for (let i = 0; i < boardLength; i++){
+      for (let j = 0; j < boardLength; j++) {
+        boardArray[i].push({
+          state: '-',
+          id: new Date().getTime()
+        });
+      }
+    }
+
+    // empty board right now
+
+    for (let i = 0; i < boardLength; i++){
+      let div = document.createElement('div');
+      div.id = i;
+      for (let j = 0; j < boardLength; j++){
+        let button = document.createElement('button');
+        button.innerText = boardArray[i][j].state;
+        button.id = boardArray[i][j].id;
+        button.style = 'padding: 19px;'
+        div.appendChild(button);
+        ticTacToe.appendChild(div);
+      }
+    }
+
+
+
+  </script>
+</body>
+</html>
