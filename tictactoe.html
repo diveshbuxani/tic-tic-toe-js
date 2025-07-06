@@ -6,11 +6,13 @@
   <title>Tic Tac Toe</title>
 </head>
 <body>
-  <div class="tic-tac-toe"></div>
+  <p class="player-title"></p>
+  <div class="tic-tac-toe" style="display: grid; grid-template-columns: 47px 47px 47px;"></div>
 
   <script>
     const boardLength = 3;
     const ticTacToe = document.querySelector('.tic-tac-toe')
+    const playerTitle = document.querySelector('.player-title');
     const boardArray = [];
     for (let i = 0; i < boardLength; i++){
       boardArray.push([]);
@@ -30,22 +32,18 @@
     // empty board right now
 
     const renderBoard = () => {
+      playerTitle.innerText = '';
       ticTacToe.innerHTML = '';
-      let currentPlayerTitle = document.createElement('p');
-      currentPlayerTitle.innerText = (currentPlayer === player1 ? "Player 1's Move: ": "Player 2's Move: ")
-      currentPlayerTitle.style.fontWeight = 'bold';
-      ticTacToe.appendChild(currentPlayerTitle);
+      playerTitle.innerText = (currentPlayer === player1 ? "Player 1's Move: ": "Player 2's Move: ")
+      playerTitle.style.fontWeight = 'bold';
       for (let i = 0; i < boardLength; i++){
-        let div = document.createElement('div');
-        div.id = i;
         for (let j = 0; j < boardLength; j++){
           let button = document.createElement('button');
           button.innerText = boardArray[i][j].state;
           button.id = boardArray[i][j].id;
           button.style = 'padding: 19px;'
           button.onclick = handleOnClick;
-          div.appendChild(button);
-          ticTacToe.appendChild(div);
+          ticTacToe.appendChild(button);
         }
       }
     } 
