@@ -29,20 +29,65 @@
 
     // empty board right now
 
-    for (let i = 0; i < boardLength; i++){
-      let div = document.createElement('div');
-      div.id = i;
-      for (let j = 0; j < boardLength; j++){
-        let button = document.createElement('button');
-        button.innerText = boardArray[i][j].state;
-        button.id = boardArray[i][j].id;
-        button.style = 'padding: 19px;'
-        div.appendChild(button);
-        ticTacToe.appendChild(div);
+    const renderBoard = () => {
+      for (let i = 0; i < boardLength; i++){
+        let div = document.createElement('div');
+        div.id = i;
+        for (let j = 0; j < boardLength; j++){
+          let button = document.createElement('button');
+          button.innerText = boardArray[i][j].state;
+          button.id = boardArray[i][j].id;
+          button.style = 'padding: 19px;'
+          div.appendChild(button);
+          ticTacToe.appendChild(div);
+        }
       }
+    } 
+
+    renderBoard();
+    const player1 = 'x';
+    const player2 = 'o';
+    let currentPlayer = player1;
+
+    const isPlayerWin = (player) => {
+      for (let i = 0; i < boardLength; i++){
+        let countHorizontal = 0;
+        let countVertical = 0;
+        for (let j = 0; j < boardLength; j++){
+          if (boardArray[i][j].state === player){
+            countHorizontal++;
+          }
+          if (boardArray[j][i].state === player){
+            countVertical++;
+          }
+        }
+        if (countHorizontal === boardLength || countVertical === boardLength){
+          return true;
+        }
+      }
+
+      for (let i = 0; i < boardLength; i++){
+        countLeftDiagonal = 0;
+        if (boardArray[i][i].state === player){
+          countLeftDiagonal++;
+        }
+      }
+      if (countLeftDiagonal === boardLength){
+        return true;
+      }
+
+      for (let i = 0; i < boardLength; i++){
+        countRightDiagonal = 0;
+        if (boardArray[i][boardLength - i - 1].state === player){
+          countRightDiagonal++;
+        }
+      }
+
+      if (countRightDiagonal === boardLength) {
+        return true;
+      }
+
     }
-
-
 
   </script>
 </body>
