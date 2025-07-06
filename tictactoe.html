@@ -85,13 +85,20 @@
         return;
       }
       
+      if (isTie()) {
+        setTimeout(() => {
+          alert('Tie!');
+        }, 150);
+        return;
+      }
+
       if (currentPlayer === player1){
         currentPlayer = player2;
       }
       else {
         currentPlayer = player1;
       }
-
+      
       renderBoard();
     }
 
@@ -139,6 +146,21 @@
       }
 
       if (countRightDiagonal === boardLength) {
+        return true;
+      }
+
+    }
+
+    const isTie = () => {
+      count = 0;
+      for (let i = 0; i < boardLength; i++){
+        for (let j = 0; j < boardLength; j++){
+          if (boardArray[i][j].state != "-"){
+            count += 1;
+          }
+        }
+      }
+      if (count === boardLength ** 2){
         return true;
       }
 
