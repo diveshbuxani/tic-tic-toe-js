@@ -22,7 +22,7 @@
       for (let j = 0; j < boardLength; j++) {
         boardArray[i].push({
           state: '-',
-          id: new Date().getTime()
+          id: `${i}-${j}`
         });
       }
     }
@@ -30,6 +30,11 @@
     // empty board right now
 
     const renderBoard = () => {
+      ticTacToe.innerHTML = '';
+      let currentPlayerTitle = document.createElement('p');
+      currentPlayerTitle.innerText = (currentPlayer === player1 ? "Player 1's Move: ": "Player 2's Move: ")
+      currentPlayerTitle.style.fontWeight = 'bold';
+      ticTacToe.appendChild(currentPlayerTitle);
       for (let i = 0; i < boardLength; i++){
         let div = document.createElement('div');
         div.id = i;
@@ -38,16 +43,66 @@
           button.innerText = boardArray[i][j].state;
           button.id = boardArray[i][j].id;
           button.style = 'padding: 19px;'
+          button.onclick = handleOnClick;
           div.appendChild(button);
           ticTacToe.appendChild(div);
         }
       }
     } 
 
-    renderBoard();
+
     const player1 = 'x';
     const player2 = 'o';
     let currentPlayer = player1;
+
+    const handleOnClick = (e) => {
+      if (!isMoveValid(e.target.innerText)){
+        alert("This is not a valid move!");
+        return;
+      }
+ 
+      for (let i = 0; i < boardLength; i++){
+        for (let j = 0; j < boardLength; j++){
+          if ((''+boardArray[i][j].id) === e.target.id){
+            boardArray[i][j].state = currentPlayer;
+          }
+        }
+      }
+
+      renderBoard();
+
+      if (isPlayerWin(player1)) {
+        setTimeout(() => {
+          alert('Player 1 Wins!');
+        }, 150);
+        return;
+      }
+        
+      if (isPlayerWin(player2)) {
+        setTimeout(() => {
+          alert('Player 2 Wins!');
+        }, 150);
+        return;
+      }
+      
+      if (currentPlayer === player1){
+        currentPlayer = player2;
+      }
+      else {
+        currentPlayer = player1;
+      }
+
+      renderBoard();
+    }
+
+    const isMoveValid = (buttonState) => {
+      if (buttonState === "-"){
+        return true;
+      }
+      else { 
+        return false;
+      }
+    }
 
     const isPlayerWin = (player) => {
       for (let i = 0; i < boardLength; i++){
@@ -66,8 +121,8 @@
         }
       }
 
+      countLeftDiagonal = 0;
       for (let i = 0; i < boardLength; i++){
-        countLeftDiagonal = 0;
         if (boardArray[i][i].state === player){
           countLeftDiagonal++;
         }
@@ -76,8 +131,8 @@
         return true;
       }
 
+      countRightDiagonal = 0;
       for (let i = 0; i < boardLength; i++){
-        countRightDiagonal = 0;
         if (boardArray[i][boardLength - i - 1].state === player){
           countRightDiagonal++;
         }
@@ -88,6 +143,8 @@
       }
 
     }
+
+    renderBoard();
 
   </script>
 </body>
