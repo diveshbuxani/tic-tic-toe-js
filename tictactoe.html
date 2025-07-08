@@ -7,7 +7,7 @@
 </head>
 <body>
   <p class="player-title"></p>
-  <div class="tic-tac-toe" style="display: grid; grid-template-columns: 47px 47px 47px;"></div>
+  <div class="tic-tac-toe" style="display: flex; width: 151px; flex-wrap: wrap;"></div>
 
   <script>
     const boardLength = 3;
@@ -41,7 +41,7 @@
           let button = document.createElement('button');
           button.innerText = boardArray[i][j].state;
           button.id = boardArray[i][j].id;
-          button.style = 'padding: 19px;'
+          button.style = 'padding: 14px 19px;'
           button.onclick = handleOnClick;
           ticTacToe.appendChild(button);
         }
